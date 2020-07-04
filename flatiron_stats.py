@@ -6,12 +6,12 @@ def welch_t(a, b):
     
     """ Calculate Welch's t statistic for two samples. """
 
-    numerator = a.mean() - b.mean()
+    numerator = np.mean(a) - np.mean(b)
     
     # “ddof = Delta Degrees of Freedom”: the divisor used in the calculation is N - ddof, 
     #  where N represents the number of elements. By default ddof is zero.
     
-    denominator = np.sqrt(a.var(ddof=1)/a.size + b.var(ddof=1)/b.size)
+    denominator = np.sqrt(np.var(a,ddof=1)/np.size(a) + np.var(b,ddof=1)/np.size(b))
     
     return np.abs(numerator/denominator)
 
@@ -19,10 +19,10 @@ def welch_df(a, b):
     
     """ Calculate the effective degrees of freedom for two samples. This function returns the degrees of freedom """
     
-    s1 = a.var(ddof=1) 
-    s2 = b.var(ddof=1)
-    n1 = a.size
-    n2 = b.size
+    s1 = np.var(a,ddof=1) 
+    s2 = np.var(b,ddof=1)
+    n1 = np.size(a)
+    n2 = np.size(b)
     
     numerator = (s1/n1 + s2/n2)**2
     denominator = (s1/ n1)**2/(n1 - 1) + (s2/ n2)**2/(n2 - 1)
